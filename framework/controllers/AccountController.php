@@ -20,6 +20,35 @@ switch ($act) {
             echo json_encode($res);
             exit;
         break;
+    case 'account_create': 
+        $new_account = $account_model->profile_create($_POST);
+
+        echo json_encode([
+            "insert_id" => $new_account,
+            "success"   => 1,
+            "action"    => "AccountController/?action=account_login"
+        ]);
+        exit;
+        break;
+
+    case 'account_update':
+        $updated_account = $account_model->profile_update();
+
+        echo json_encode([
+            "data"      => $updated_account,
+            "success"   => 1,
+            "action"    => "AccountController/?action=account_login"
+        ]);
+        exit;
+        break;
+    
+    case 'account_logout':
+        case 'account_logout':
+            echo json_encode([
+                "logout"  => session_destroy(),
+                "success" => 1
+            ]);
+        break;
     
     default:
         break;

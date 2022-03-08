@@ -51,7 +51,7 @@ class Helpers {
             "filename"       => $path_parts['filename'],
             "file_temp"      => $fileTmpName,
             "filesize"       => $fileSize,
-            "created_by"     => 1,
+            "created_by"     => $_SESSION['uid'],
             "date_created"   => date('Y-m-d H:i:s'),
             "file_link"      => $uploadPath,
             "timestamp_tick" => $tick,

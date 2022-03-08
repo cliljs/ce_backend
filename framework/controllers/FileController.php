@@ -23,6 +23,8 @@ switch ($act) {
         exit;
         break;
     
+        // DELETE ROUTE
+    
     default:
         # code...
         break;

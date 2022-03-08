@@ -23,6 +23,11 @@ class AccountModel {
             return ['exists' => false];
         }
 
+        $_SESSION['uid']       = $has_account[0]['id'];
+        $_SESSION['email']     = $has_account[0]['email'];
+        $_SESSION['firstname'] = $has_account[0]['firstname'];
+        $_SESSION['lastname']  = $has_account[0]['lastname'];
+
         return $has_account[0];
     }
 
@@ -43,6 +48,32 @@ class AccountModel {
         $fields = $common->get_insert_fields($arr);
 
         return $db->query("INSERT INTO {$this->base_table} {$fields} VALUES (?,?,?,?,?,?,?)", array_values($arr));
+    }
+
+    public function profile_update($payload= [])
+    {
+        global $db, $common;
+
+		$accounts_pk = null;
+		if (!empty($_SESSION)) {
+			$accounts_pk = $_SESSION["uid"];
+		} else {
+			$accounts_pk = $payload['account_id'];
+		}
+
+        if (array_key_exists('account_id', $payload)) {
+            unset($payload['account_id']);
+        }
+		
+		$update_fields = $common->get_update_fields($payload);
+
+		$payload['account_id'] = $accounts_pk;
+		$db->query("UPDATE {$this->base_table} SET {$update_fields} WHERE id = ?", array_values($payload));
+
+		$account = $db->select("SELECT *  FROM {$this->base_table}  WHERE id = ?", [$payload['account_id']]);
+
+		return $account[0];
+        
     }
 }
 
