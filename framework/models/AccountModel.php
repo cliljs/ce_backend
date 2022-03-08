@@ -3,6 +3,9 @@
 include_once '../../autoload.php';
 /* 
     NAGEEXPIRE PALA TOKEN NA GALING EMAIL KUYA
+
+    * mga kulang
+     - DI MUNA AKO NAGLAGAY NG UPDATE KASI GALING SA GOOGLE YUNG DATA NILA
 */
 
 class AccountModel {
