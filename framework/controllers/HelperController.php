@@ -1,7 +1,5 @@
 <?php
 
-include_once '../../autoload.php';
-
 class Helpers {
 
     public function get_insert_fields($arr)

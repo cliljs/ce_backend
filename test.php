@@ -2,8 +2,6 @@
 
 include_once './autoload.php';
 
-
-
 $act = !empty($_GET['act']) ? $_GET['act'] : ''; 
 
 switch ($act) {
@@ -25,8 +23,9 @@ switch ($act) {
             } else {
                 $insert_fields = $common->get_insert_fields($test_data);
 
-             echo $db->query("INSERT INTO ce_accounts {$insert_fields} VALUES (?,?,?,?,?,?,?)", array_values($test_data));
+                echo $db->query("INSERT INTO ce_accounts {$insert_fields} VALUES (?,?,?,?,?,?,?)", array_values($test_data));
             }
+        exit;
         break;
     
     case 'truncate': 
@@ -42,8 +41,6 @@ switch ($act) {
         $db->query("TRUNCATE TABLE ce_notes", []);
         echo "TRUNCATE ce_notes <br />";
     break;
-
-        break;
 
     default:
         # code...

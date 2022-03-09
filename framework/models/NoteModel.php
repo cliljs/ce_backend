@@ -21,12 +21,13 @@ class NoteModel {
         return $db->query("INSERT INTO {$this->base_table} {$fields} VALUES (?,?,?,?)", array_values($arr));
     }
 
-    public function update($payload) 
+    public function update($payload = []) 
     {
         global $db, $common;
 
-        $note_pk = $payload['note_id'];
-
+        $note_pk                 = $payload['note_id'];
+        $payload['date_updated'] = date('Y-m-d H:i:s');
+        
         unset($payload['note_id']);
         $update_fields = $common->get_update_fields($payload);
       
@@ -34,6 +35,14 @@ class NoteModel {
         $db->query("UPDATE {$this->base_table} SET {$update_fields} WHERE id = ?", array_values($payload));
 
         return $note_pk;
+    }
+
+    public function get_user_note() 
+    {
+        global $db, $common;
+
+
+        return $db->select("SELECT * FROM {$this->base_table} WHERE author_id = ?", [$_SESSION['uid']]);
     }
 }
 

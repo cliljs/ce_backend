@@ -43,11 +43,11 @@ switch ($act) {
         break;
     
     case 'account_logout':
-        case 'account_logout':
-            echo json_encode([
-                "logout"  => session_destroy(),
-                "success" => 1
-            ]);
+        echo json_encode([
+            "logout"  => session_destroy(),
+            "success" => 1
+        ]);
+        exit;
         break;
     
     default:

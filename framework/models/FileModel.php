@@ -21,6 +21,36 @@ class FileModel {
 
         return $db->query("INSERT INTO {$this->base_table} {$fields} VALUES (?,?,?,?,?,?,?)", array_values($file_data));
     }
+
+    public function update($id, $file)
+    {
+        global $db, $common;
+       
+        $file_row = $db->select("SELECT * FROM {$this->base_table} WHERE id = ?", [$id]);
+
+        unlink($file_row[0]['file_link']);
+
+        $file_data = $common->upload('files', $file);
+        
+        $fields = null;
+        if (array_key_exists("has_errors", $file_data)) {
+            return $file_data;
+        } else {
+             $fields = $common->get_update_fields($file_data);
+        }
+
+        $file_data['id'] = $id;
+        $db->query("UPDATE {$this->base_table} SET {$fields} WHERE id = ?", array_values($file_data));
+
+        return $id;
+    }
+
+    public function get_user_files() 
+    {
+        global $db, $common;
+
+        return $db->select("SELECT * FROM {$this->base_table} WHERE created_by = ?", [$_SESSION['uid']]);
+    }
 }
 
 $file_model = new FileModel();
