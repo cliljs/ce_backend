@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -32,8 +33,6 @@ if (file_exists(CONTROLLER_PATH . $request_controller)) {
     include_once  CONTROLLER_PATH .  $request_controller; 
 } 
 
-session_start();
-    
 $db         = new DatabaseController();
 $php_mailer = new PHPMailer();
 
