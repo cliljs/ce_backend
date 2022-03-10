@@ -32,7 +32,7 @@ switch ($act) {
     case 'get_notes':
         echo json_encode([
             "success" => 1,
-            "data"    => $note_model->get_user_note(),
+            "data"    => $note_model->get_user_note($_POST),
             "action"  => 'NoteController.php/?action=get_notes'
         ]);
         exit;

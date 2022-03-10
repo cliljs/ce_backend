@@ -13,7 +13,7 @@ class NoteModel {
             "title"        => $payload['title'],
             "content"      => $payload['content'],
             "date_created" => date('Y-m-d H:i:s'),
-            "author_id"    => $_SESSION['uid'],
+            "author_id"    => $payload['user_id'],
         ];
 
         $fields = $common->get_insert_fields($arr);
@@ -37,12 +37,12 @@ class NoteModel {
         return $note_pk;
     }
 
-    public function get_user_note() 
+    public function get_user_note($payload = []) 
     {
         global $db, $common;
 
 
-        return $db->select("SELECT * FROM {$this->base_table} WHERE author_id = ?", [$_SESSION['uid']]);
+        return $db->select("SELECT * FROM {$this->base_table} WHERE author_id = ?", [$payload['user_id']]);
     }
 }
 
