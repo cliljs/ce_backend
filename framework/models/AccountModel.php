@@ -44,8 +44,8 @@ class AccountModel {
             "date_created"       => date('Y-m-d H:i:s')
         ];
 
-        $fields = $common->get_insert_fields($arr);
-        $autoID = $db->query("INSERT INTO {$this->base_table} {$fields} VALUES (?,?,?,?,?,?,?)", array_values($arr));
+        $fields = $common->get_insert_fields($arr);    
+        $autoID = $db->query("INSERT INTO {$this->base_table} {$fields} VALUES (?,?,?,?,?,?,?,?)", array_values($arr));
 
         $_SESSION['uid'] = $autoID;
         $_SESSION['uid'] = isset($autoID) ? $payload['email'] : '';
