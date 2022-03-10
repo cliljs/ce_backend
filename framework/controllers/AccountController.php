@@ -53,8 +53,13 @@ switch ($act) {
         break;
     
     case 'account_logout':
+        session_regenerate_id();
+
+        session_destroy();
+        setcookie("PHPSESSID","",time()-3600,"/"); // delete session cookie
+
         echo json_encode([
-            "logout"  => session_destroy(),
+            "logout"  => 1,
             "success" => 1
         ]);
         exit;

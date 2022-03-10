@@ -23,7 +23,8 @@ class AccountModel {
             return ['exists' => true];
         }
 
-        $_SESSION['uid']  = $has_account[0]['id'];
+        $_SESSION['uid']    = $has_account[0]['id'];
+        $_SESSION['email']  = $has_account[0]['email'];
 
         return $has_account[0];
     }
@@ -45,7 +46,9 @@ class AccountModel {
 
         $fields = $common->get_insert_fields($arr);
         $autoID = $db->query("INSERT INTO {$this->base_table} {$fields} VALUES (?,?,?,?,?,?,?)", array_values($arr));
+
         $_SESSION['uid'] = $autoID;
+        $_SESSION['uid'] = isset($autoID) ? $payload['email'] : '';
 
         return $autoID;
     }
