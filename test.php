@@ -12,6 +12,7 @@ switch ($act) {
                 "lastname"           => "Jaudian",
                 "gender"             => "M",
                 "contact_number"     => "09955591932",
+                "job_position"       => "Admin",
                 "verification_token" => "qweqweqjqkeqkjeqwnkeqkqewqwehj",
                 "date_created"       => date('Y-m-d H:i:s')
             ];
@@ -23,7 +24,7 @@ switch ($act) {
             } else {
                 $insert_fields = $common->get_insert_fields($test_data);
 
-                echo $db->query("INSERT INTO ce_accounts {$insert_fields} VALUES (?,?,?,?,?,?,?)", array_values($test_data));
+                echo $db->query("INSERT INTO ce_accounts {$insert_fields} VALUES (?,?,?,?,?,?,?,?)", array_values($test_data));
             }
         exit;
         break;

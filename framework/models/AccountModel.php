@@ -24,7 +24,6 @@ class AccountModel {
         }
 
         $_SESSION['uid']  = $has_account[0]['id'];
-    
 
         return $has_account[0];
     }
@@ -39,6 +38,7 @@ class AccountModel {
             "lastname"           => $payload['lastname'],
             "gender"             => $payload['gender'],
             "contact_number"     => $payload['contact_number'],
+            "job_position"       => $payload['job_position'],
             "verification_token" => $payload['token'],
             "date_created"       => date('Y-m-d H:i:s')
         ];
@@ -46,6 +46,7 @@ class AccountModel {
         $fields = $common->get_insert_fields($arr);
         $autoID = $db->query("INSERT INTO {$this->base_table} {$fields} VALUES (?,?,?,?,?,?,?)", array_values($arr));
         $_SESSION['uid'] = $autoID;
+
         return $autoID;
     }
 
@@ -73,6 +74,13 @@ class AccountModel {
 
 		return $account[0];
         
+    }
+
+    public function get_job_positions()
+    {
+        global $db, $common;
+
+        return $db->select("SELECT job_position FROM {$this->base_table} GROUP BY job_position ORDER BY job_position", []);
     }
 }
 

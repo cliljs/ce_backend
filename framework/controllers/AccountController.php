@@ -42,6 +42,16 @@ switch ($act) {
         exit;
         break;
     
+    case 'account_position':
+        $job_positions = $account_model->get_job_positions();
+
+        echo json_encode([
+            "data"      => array_column($job_positions, 'job_position'),
+            "success"   => 1,
+            "action"    => "AccountController/?action=account_position"
+        ]);
+        break;
+    
     case 'account_logout':
         echo json_encode([
             "logout"  => session_destroy(),
