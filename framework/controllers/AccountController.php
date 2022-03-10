@@ -13,7 +13,7 @@ switch ($act) {
             if (array_key_exists("exists", $is_auth) && !$is_auth['exists']) {
 				$res['success']  = 0;
 			} else {
-				$res['success']  = 0;
+				$res['success']  = 1;
                 $res['data']     =  $is_auth;
             }
 
