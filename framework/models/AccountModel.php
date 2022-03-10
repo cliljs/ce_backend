@@ -20,13 +20,11 @@ class AccountModel {
         $has_account = $db->select("SELECT * FROM {$this->base_table} WHERE email = ?", [$request_email]);
 
         if (empty($has_account)) {
-            return ['exists' => false];
+            return ['exists' => true];
         }
 
-        $_SESSION['uid']       = $has_account[0]['id'];
-        $_SESSION['email']     = $has_account[0]['email'];
-        $_SESSION['firstname'] = $has_account[0]['firstname'];
-        $_SESSION['lastname']  = $has_account[0]['lastname'];
+        $_SESSION['uid']  = $has_account[0]['id'];
+    
 
         return $has_account[0];
     }
@@ -46,8 +44,9 @@ class AccountModel {
         ];
 
         $fields = $common->get_insert_fields($arr);
-
-        return $db->query("INSERT INTO {$this->base_table} {$fields} VALUES (?,?,?,?,?,?,?)", array_values($arr));
+        $autoID = $db->query("INSERT INTO {$this->base_table} {$fields} VALUES (?,?,?,?,?,?,?)", array_values($arr));
+        $_SESSION['uid'] = $autoID;
+        return $autoID;
     }
 
     public function profile_update($payload= [])
