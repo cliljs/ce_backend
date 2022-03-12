@@ -41,7 +41,6 @@ class NoteModel {
     {
         global $db, $common;
 
-
         return $db->select("SELECT * FROM {$this->base_table} WHERE author_id = ?", [$payload['user_id']]);
     }
 }
