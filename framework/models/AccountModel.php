@@ -43,7 +43,7 @@ class AccountModel {
         ];
 
         $fields = $common->get_insert_fields($arr);    
-        $autoID = $db->query("INSERT INTO {$this->base_table} {$fields} VALUES (?,?,?,?,?,?,?,?)", array_values($arr));
+        $autoID = $db->query("INSERT INTO {$this->base_table} {$fields} VALUES (?,?,?,?,?,?,?,?,?)", array_values($arr));
 
         return $autoID;
     }
