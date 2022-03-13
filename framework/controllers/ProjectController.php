@@ -29,7 +29,7 @@ switch ($act) {
 
     case 'get_projects':
         echo json_encode([
-            "data"       =>  $project_model->get_projects($_GET['user_id']),
+            "data"       =>  $project_model->get_projects(),
             "success"    => 1,
             "action"     => "ProjectController/action=get_projects"
         ]);
