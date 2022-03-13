@@ -7,6 +7,7 @@ $act = isset($_GET['action']) ? $_GET['action'] : '';
 
 switch ($act) {
     case 'file_upload':
+        
         $new_file =  $file_model->create($_POST);
 
         $res = ["action" => "FileController.php/?action=file_upload"];
@@ -46,7 +47,16 @@ switch ($act) {
         ]);
         exit;
         break;
-    
+
+    case 'remove_file':
+        echo json_encode([
+            "success"    => 1,
+            "deleted_id" => $file_model->remove_file($_POST['file_id']),
+            "action"     => "FileController.php/?action=remove_file"
+        ]);
+        exit;
+        break;
+
         // DELETE ROUTE
     
     default:

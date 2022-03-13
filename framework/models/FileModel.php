@@ -19,7 +19,7 @@ class FileModel {
              $fields = $common->get_insert_fields($file_data);
         }
 
-        return $db->query("INSERT INTO {$this->base_table} {$fields} VALUES (?,?,?,?,?,?,?)", array_values($file_data));
+        return $db->query("INSERT INTO {$this->base_table} {$fields} VALUES (?,?,?,?,?,?)", array_values($file_data));
     }
 
     public function update($id, $file)
@@ -30,7 +30,7 @@ class FileModel {
 
         unlink($file_row[0]['file_link']);
 
-        $file_data = $common->upload('files', $file);
+        $file_data = $common->upload_new('files', $file);
         
         $fields = null;
         if (array_key_exists("has_errors", $file_data)) {
@@ -45,11 +45,23 @@ class FileModel {
         return $id;
     }
 
-    public function get_user_files($id) 
+    public function get_user_files() 
     {
         global $db, $common;
 
-        return $db->select("SELECT * FROM {$this->base_table} WHERE created_by = ?", [$id]);
+        return $db->select("SELECT * FROM {$this->base_table}", []);
+    }
+
+    public function remove_file($id)
+    {
+        global $db, $common;
+
+        $file_data = $db->select("SELECT * FROM {$this->base_table} WHERE id = ?", [$id]);
+        unlink(UPLOAD_PATH . $file_data[0]['file_link']);
+
+        $db->query("DELETE FROM {$this->base_table} WHERE id = ?", [$id]);
+
+        return $id;
     }
 }
 
