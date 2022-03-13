@@ -10,17 +10,21 @@ class ComputeModel {
     {
         global $db, $common;
 
-        $arr  = [
-            "project_id"   => $payload['project_id'],
-            "category"     => $payload['category'],
-            "sub_category" => $payload['sub_category'],
-            "cat_key"      => $payload['cat_key'],
-            "value"        => $payload['value'],
-        ];
+        $decoded = json_decode($payload['stringed_array'], true);
 
-        $fields = $common->get_insert_fields($arr);
+        foreach ($decoded as $key => $value) {
+                $arr  = [
+                    "project_id"   => $value['project_id'],
+                    "category"     => $value['category'],
+                    "sub_category" => $value['sub_category'],
+                    "cat_key"      => $value['cat_key'],
+                    "value"        => $value['value'],
+                ];
 
-        return $db->query("INSERT INTO {$this->base_table} {$fields} VALUES (?,?,?,?,?)", array_values($arr));
+                $fields = $common->get_insert_fields($arr);
+
+                $db->query("INSERT INTO {$this->base_table} {$fields} VALUES (?,?,?,?,?)", array_values($arr));
+        }
     }
     
     public function update_compute($payload = [])

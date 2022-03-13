@@ -10,8 +10,7 @@ switch ($act) {
         $new_compute = $compute_model->create_compute($_POST);
 
         echo json_encode([
-            "success"   => $new_compute > 0 ? 1 : 0,
-            "insert_id" => $new_compute,
+            "success"   => 1,
             "action"    => "ComputeController/action=create_compute"  
         ]);
         exit;
