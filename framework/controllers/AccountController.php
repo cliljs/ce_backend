@@ -52,6 +52,16 @@ switch ($act) {
         ]);
         break;
     
+    case 'account_list':
+
+        echo json_encode([
+            "data"      => $this->get_account_list(),
+            "success"   => 1,
+            "action"    => "AccountController/?action=account_list"
+        ]);
+        exit;
+        break;
+    
     case 'account_logout':
         session_regenerate_id();
 

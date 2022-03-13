@@ -85,6 +85,13 @@ class AccountModel {
 
         return $db->select("SELECT job_position FROM {$this->base_table} GROUP BY job_position ORDER BY job_position", []);
     }
+
+    public function get_account_list()
+    {
+        global $db, $common;
+
+        return $db->select("SELECT * FROM {$this->base_table}", []);
+    }
 }
 
 $account_model = new AccountModel();
