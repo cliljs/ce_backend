@@ -86,7 +86,7 @@ class Helpers {
         "filesize"       => $file_size,
         "created_by"     => $file['user_id'],
         "date_created"   => date('Y-m-d H:i:s'),
-        "file_link"      => $original_path,
+        "file_link"      => $file_name,
         "timestamp_tick" => $tick,
       ];
     }
