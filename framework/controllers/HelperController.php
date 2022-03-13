@@ -66,20 +66,20 @@ class Helpers {
     // FOR BASE 64 UPLOADS
     public function upload_new($upload_type = null, $file = [])
     {
-      $decoded_base64 = $file['file_temp'];
+      $decoded_base64 = base64_decode($file['file_temp']);
       $tick           = strtotime(date('Y-m-d H:i:s'));
       $file_name      = null;
       $original_path  = null;
 
       if ($upload_type === 'files') {
-        $file_name     = "/files/{$file['file_name']}_{$tick}.{$file['']}";
+        $file_name     = "/files/{$file['file_name']}_{$tick}.{$file['ext']}";
         $original_path = UPLOAD_PATH . $file_name;
       } else {
-        $file_name     = "/images/{$file['file_name']}_{$tick}.png";
+        $file_name     = "/images/{$file['file_name']}_{$tick}.{$file['ext']}";
         $original_path = UPLOAD_PATH . $file_name;
       }
 
-      $file_size     = file_put_contents($original_path, $file);
+      $file_size     = file_put_contents($original_path, $decoded_base64);
 
       return [
         "filename"       => $file_name,

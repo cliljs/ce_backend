@@ -10,7 +10,7 @@ switch ($act) {
     case 'create_daily':
         $_POST['is_daily_log'] = 1;
 
-        $new_log =  $log_model->create_log($_POST, $_FILES);
+        $new_log =  $log_model->create_log($_POST);
 
         echo json_encode([
                 "success" => 1,
@@ -23,7 +23,7 @@ switch ($act) {
     case 'create_maintenance':
         $_POST['is_daily_log'] = 0;
 
-        $new_log =  $log_model->create_log($_POST, $_FILES);
+        $new_log =  $log_model->create_log($_POST);
 
         echo json_encode([
                 "success" => 1,
@@ -38,10 +38,10 @@ switch ($act) {
         $res_data = null;
         if (intval($_GET['type']) === 1) {
              // GET DAILY LOGS
-            $res_data = $log_model->get_logs();
+            $res_data = $log_model->get_logs(1, $_POST['user_id']);
         } else {
              // GET MAINTENANCE LOGS
-            $res_data = $log_model->get_logs(0);
+            $res_data = $log_model->get_logs(0, $_POST['user_id']);
         }
         
         echo json_encode([

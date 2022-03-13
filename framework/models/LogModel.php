@@ -3,12 +3,23 @@
 class LogModel {
     private $base_table = 'ce_logs';
 
-    public function create_log($payload = [], $files = []) 
+    public function create_log($payload = []) 
     {
         global $db, $common;
         
-        $emp_signature        = $common->upload('images', $files[0]);
-        $supervisor_signature = $common->upload('images', $files[1]);
+        $emp_file = [
+            "file_name" => $payload['emp_filename'],
+            "file_temp" => $payload['emp_base64'],
+            "ext"       => $payload['emp_file_ext']
+        ];  
+        $emp_signature        = $common->upload_new('images', $emp_file);
+
+        $adv_file = [
+            "file_name" => $payload['adv_filename'],
+            "file_temp" => $payload['adv_base64'],
+            "ext"       => $payload['adv_file_ext']
+        ];  
+        $supervisor_signature = $common->upload_new('images', $adv_file);
 
         $arr = [
             "name"                 => $payload['name'],
