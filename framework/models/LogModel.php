@@ -10,14 +10,16 @@ class LogModel {
         $emp_file = [
             "file_name" => $payload['emp_filename'],
             "file_temp" => $payload['emp_base64'],
-            "ext"       => $payload['emp_file_ext']
+            "ext"       => $payload['emp_file_ext'],
+            "user_id"   => $payload['user_id'],
         ];  
         $emp_signature        = $common->upload_new('images', $emp_file);
 
         $adv_file = [
             "file_name" => $payload['adv_filename'],
             "file_temp" => $payload['adv_base64'],
-            "ext"       => $payload['adv_file_ext']
+            "ext"       => $payload['adv_file_ext'],
+            "user_id"   => $payload['user_id'],
         ];  
         $supervisor_signature = $common->upload_new('images', $adv_file);
 
