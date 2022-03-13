@@ -52,6 +52,16 @@ switch ($act) {
         exit;
         break;
 
+    case 'get_row_log':
+    
+        echo json_encode([
+            "success" => 1,
+            "data"    => $log_model->get_log_row($_GET['id']),
+            "action"  => "LogController/action=get_row_log"
+        ]);
+        exit;
+        break;
+
     
     default:
         # code...

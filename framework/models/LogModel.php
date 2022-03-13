@@ -52,6 +52,15 @@ class LogModel {
         return $db->select("SELECT * FROM {$this->base_table} WHERE email = ? AND is_daily_log = ?", [ $user_id, $is_daily_logs ]);
     }
 
+    public function get_log_row($pk) 
+    {
+        global $db, $common;
+
+        $result =  $db->select("SELECT * FROM {$this->base_table} WHERE id = ?", [ $pk ]);
+
+        return $result[0];
+    }
+
 }
 
 $log_model = new LogModel();
