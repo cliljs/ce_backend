@@ -7,7 +7,7 @@ $act = isset($_GET['action']) ? $_GET['action'] : '';
 
 switch ($act) {
     case 'file_upload':
-        $new_file =  $file_model->create($_FILES['form_data']);
+        $new_file =  $file_model->create($_POST);
 
         $res = ["action" => "FileController.php/?action=file_upload"];
         if (is_array($new_file)) {
@@ -23,7 +23,7 @@ switch ($act) {
         break;
 
     case 'file_update':
-        $new_file =  $file_model->update($_POST['id'], $_FILES['form_data']);
+        $new_file =  $file_model->update($_POST['id'], $_POST);
 
         $res = ["action" => "FileController.php/?action=file_update"];
         if (is_array($new_file)) {

@@ -21,7 +21,7 @@ class LogModel {
             "supervisor_signature" => $supervisor_signature['file_link'], 
             "email_to"             => $payload['email_to'], 
             "is_daily_log"         => $payload['is_daily_log'], 
-            "email"                => $_SESSION['email'], 
+            "email"                => $payload['email'], 
         ];
 
         $fields = $common->get_insert_fields($arr);
@@ -30,13 +30,13 @@ class LogModel {
     }
 
     // 
-    public function get_logs($type = 1) 
+    public function get_logs($type = 1, $user_id) 
     {
         global $db, $common;
 
         $is_daily_logs = $type === 1 ? 1 : 0;
 
-        return $db->select("SELECT * FROM {$this->base_table} WHERE email = ? AND is_daily_log = ?", [ $_SESSION['email'], $is_daily_logs ]);
+        return $db->select("SELECT * FROM {$this->base_table} WHERE email = ? AND is_daily_log = ?", [ $user_id, $is_daily_logs ]);
     }
 
 }

@@ -46,16 +46,16 @@ $php_mailer->Port       = 587;
 // $mailer = new MailController($php_mailer);
 
 // MIDDLEWARE FOR ROUTING
-$dont_include = [
-                "action=account_login",
-                "action=account_register",
-                "action=account_logout", 
-            ];
+// $dont_include = [
+//                 "action=account_login",
+//                 "action=account_register",
+//                 "action=account_logout", 
+//             ];
 
-if ($request_controller <> "test.php") {
-    if (empty($_SESSION) && !in_array($_SERVER['QUERY_STRING'], $dont_include)) {
-        echo json_encode(["msg" => "nu gawa mo dito bay"]);
-        exit;
-    }
-}
+// if ($request_controller <> "test.php") {
+//     if (empty($_SESSION) && !in_array($_SERVER['QUERY_STRING'], $dont_include)) {
+//         echo json_encode(["msg" => "nu gawa mo dito bay"]);
+//         exit;
+//     }
+// }
 

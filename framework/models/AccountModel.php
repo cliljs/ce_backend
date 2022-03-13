@@ -51,12 +51,8 @@ class AccountModel {
     {
         global $db, $common;
 
-		$accounts_pk = null;
-		if (!empty($_SESSION)) {
-			$accounts_pk = $_SESSION["uid"];
-		} else {
-			$accounts_pk = $payload['account_id'];
-		}
+
+        $accounts_pk = $payload['account_id'];
 
         if (array_key_exists('account_id', $payload)) {
             unset($payload['account_id']);

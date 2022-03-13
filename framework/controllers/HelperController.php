@@ -20,6 +20,7 @@ class Helpers {
         exit;
     }
 
+    // FOR $_FILES UPLOAD
     public function upload($file_path = null, $file =[]) 
     {
         $uploadDirectory = UPLOAD_PATH .  "/{$file_path}/";
@@ -47,7 +48,6 @@ class Helpers {
         if ($didUpload) {
           return [
             "filename"       => $path_parts['filename'],
-            "file_temp"      => $fileTmpName,
             "filesize"       => $fileSize,
             "created_by"     => $_SESSION['uid'],
             "date_created"   => date('Y-m-d H:i:s'),
@@ -61,6 +61,34 @@ class Helpers {
            ];
         }
 
+    }
+
+    // FOR BASE 64 UPLOADS
+    public function upload_new($upload_type = null, $file = [])
+    {
+      $decoded_base64 = $file['file_temp'];
+      $tick           = strtotime(date('Y-m-d H:i:s'));
+      $file_name      = null;
+      $original_path  = null;
+
+      if ($upload_type === 'files') {
+        $file_name     = "/files/{$file['file_name']}_{$tick}.{$file['']}";
+        $original_path = UPLOAD_PATH . $file_name;
+      } else {
+        $file_name     = "/images/{$file['file_name']}_{$tick}.png";
+        $original_path = UPLOAD_PATH . $file_name;
+      }
+
+      $file_size     = file_put_contents($original_path, $file);
+
+      return [
+        "filename"       => $file_name,
+        "filesize"       => $file_size,
+        "created_by"     => $file['user_id'],
+        "date_created"   => date('Y-m-d H:i:s'),
+        "file_link"      => $original_path,
+        "timestamp_tick" => $tick,
+      ];
     }
 }
 

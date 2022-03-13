@@ -10,7 +10,7 @@ class FileModel {
     {
         global $db, $common;
 
-        $file_data = $common->upload('files', $file);
+        $file_data = $common->upload_new('files', $file);
         
         $fields = null;
         if (array_key_exists("has_errors", $file_data)) {
@@ -45,11 +45,11 @@ class FileModel {
         return $id;
     }
 
-    public function get_user_files() 
+    public function get_user_files($id) 
     {
         global $db, $common;
 
-        return $db->select("SELECT * FROM {$this->base_table} WHERE created_by = ?", [$_SESSION['uid']]);
+        return $db->select("SELECT * FROM {$this->base_table} WHERE created_by = ?", [$id]);
     }
 }
 
