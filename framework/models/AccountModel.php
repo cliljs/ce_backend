@@ -38,7 +38,8 @@ class AccountModel {
             "contact_number"     => $payload['contact_number'],
             "job_position"       => $payload['job_position'],
             "verification_token" => $payload['token'],
-            "date_created"       => date('Y-m-d H:i:s')
+            "date_created"       => date('Y-m-d H:i:s'),
+            "employee_id"        => $payload['employee_id']
         ];
 
         $fields = $common->get_insert_fields($arr);    
