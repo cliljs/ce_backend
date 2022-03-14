@@ -9,22 +9,19 @@ class ComputeModel {
     public function create_compute($payload = [])
     {
         global $db, $common;
+   
+        $arr  = [
+            "project_id"      => $payload['project_id'],
+            "category"        => $payload['category'],
+            "sub_category"    => $payload['sub_category'],
+            "cat_key"         => $payload['area'],
+            "value"           => $payload['preferred_time'],
+            "optional_param	" => @$payload['optional_param'] ? $payload['optional_param'] : null,
+        ];
 
-        $decoded = json_decode($payload['stringed_array'], true);
+        $fields = $common->get_insert_fields($arr);
 
-        foreach ($decoded as $key => $value) {
-                $arr  = [
-                    "project_id"   => $value['project_id'],
-                    "category"     => $value['category'],
-                    "sub_category" => $value['sub_category'],
-                    "cat_key"      => $value['cat_key'],
-                    "value"        => $value['value'],
-                ];
-
-                $fields = $common->get_insert_fields($arr);
-
-                $db->query("INSERT INTO {$this->base_table} {$fields} VALUES (?,?,?,?,?)", array_values($arr));
-        }
+       return $db->query("INSERT INTO {$this->base_table} {$fields} VALUES (?,?,?,?,?)", array_values($arr));
     }
     
     public function update_compute($payload = [])
@@ -42,12 +39,11 @@ class ComputeModel {
         return $compute_pk;
     }
 
-    public function get_compute_list($get = [])
+    public function get_compute_project($project_id = null)
     {
         global $db, $common;
         
-        unset($get['action']);
-        return $db->select("SELECT * FROM {$this->base_table} WHERE project_id = ? AND category = ?", array_values($get));
+        return $db->select("SELECT * FROM {$this->base_table} WHERE project_id = ?", [$project_id]);
     }
 }
 
