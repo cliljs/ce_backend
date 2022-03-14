@@ -38,7 +38,30 @@ switch ($act) {
         ]);
         exit;
         break;
+
+    case 'get_compute_list_cat':
+        unset($_GET['action']);
+        $result = $compute_model->get_compute_by_cat($_GET);
+
+        echo json_encode([
+            "success"    => 1,
+            "data"       => $result,
+            "action"     => "ComputeController/action=get_compute_list_cat"  
+        ]);
+        exit;
+        break;
     
+    case 'get_compute_list_all':
+        unset($_GET['action']);
+        $result = $compute_model->get_compute_all($_GET);
+
+        echo json_encode([
+            "success"    => 1,
+            "data"       => $result,
+            "action"     => "ComputeController/action=get_compute_list_all"  
+        ]);
+        exit;
+        break;
     
     default:
         break;

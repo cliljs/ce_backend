@@ -39,11 +39,32 @@ class ComputeModel {
         return $compute_pk;
     }
 
+    // WHERE project_id = ?
     public function get_compute_project($project_id = null)
     {
         global $db, $common;
         
         return $db->select("SELECT * FROM {$this->base_table} WHERE project_id = ?", [$project_id]);
+    }
+
+    // WHERE project_id = ?, category = ?
+    public function get_compute_by_cat($get = [])
+    {
+        global $db, $common;
+        
+        return $db->select("SELECT * FROM {$this->base_table} 
+                            WHERE project_id = ? AND category = ?", 
+                            array_values($get));
+    }
+
+      // WHERE project_id = ?, category = ?, sub_cat = ?
+    public function get_compute_all($get = [])
+    {
+        global $db, $common;
+        
+        return $db->select("SELECT * FROM {$this->base_table} 
+                            WHERE project_id = ? AND category = ? AND sub_category", 
+                            array_values($get));
     }
 }
 
