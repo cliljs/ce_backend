@@ -21,7 +21,7 @@ class ComputeModel {
 
         $fields = $common->get_insert_fields($arr);
 
-       return $db->query("INSERT INTO {$this->base_table} {$fields} VALUES (?,?,?,?,?)", array_values($arr));
+       return $db->query("INSERT INTO {$this->base_table} {$fields} VALUES (?,?,?,?,?,?)", array_values($arr));
     }
     
     public function update_compute($payload = [])
