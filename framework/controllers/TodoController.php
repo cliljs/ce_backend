@@ -38,6 +38,18 @@ switch ($act) {
         ]);
         exit;
         break;
+
+    case 'remove_todo':
+        $result =  $todo_model->remove_todo($_GET['id']);
+
+        echo json_encode([
+            "success"   => 1,
+            "data"      => $result,
+            "action"    => "TodoController/ation=remove_todo"
+        ]);
+        exit;
+        break;
+
     
     default:
         break;

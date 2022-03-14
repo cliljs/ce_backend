@@ -46,6 +46,17 @@ class ProjectModel {
         return $db->select("SELECT * FROM {$this->base_table}", []);
     }
 
+    public function remove_project($id = null)
+    {
+        global $db, $common;
+
+        return $db->query("DELETE {$this->base_table}, ce_compute
+                            FROM {$this->base_table}
+                            INNER JOIN ce_compute ON {$this->base_table}.id = ce_compute.project_id
+                            WHERE {$this->base_table}.id = ?
+                            ", [$id]);
+    }
+
 }
 
 $project_model = new ProjectModel();

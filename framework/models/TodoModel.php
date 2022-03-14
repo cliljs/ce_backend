@@ -48,6 +48,15 @@ class TodoModel {
 
         return $db->select("SELECT * FROM {$this->base_table} WHERE author_id = ?", array_column($payload, 'user_id'));
     }
+
+    public function remove_todo($id = null)
+    {
+        global $db, $common;
+
+        $db->query("DELETE FROM {$this->base_table} WHERE id = ?", [$id]);
+
+        return $id;
+    }
 }
 
 $todo_model = new TodoModel();

@@ -38,6 +38,15 @@ switch ($act) {
         exit;
         break;
     
+    case 'remove_note':
+        echo json_encode([
+            "success" => 1,
+            "data"    => $note_model->remove_note($_GET['id']),
+            "action"  => 'NoteController.php/?action=remove_note'
+        ]);
+        exit;
+        break;
+    
     default:
         # code...
         break;

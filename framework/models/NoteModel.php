@@ -43,6 +43,15 @@ class NoteModel {
 
         return $db->select("SELECT * FROM {$this->base_table} WHERE author_id = ?", [$payload['user_id']]);
     }
+
+    public function remove_note($id = null) 
+    {
+        global $db, $common;
+
+        $db->query("DELETE FROM {$this->base_table} WHERE id = ?", [$id]);
+
+        return $id;
+    }
 }
 
 $note_model = new NoteModel();

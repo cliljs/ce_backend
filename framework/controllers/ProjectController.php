@@ -35,6 +35,15 @@ switch ($act) {
         ]);
         exit;
         break;
+
+    case 'remove_project':
+        echo json_encode([
+            "data"       =>  $project_model->remove_project($_GET['id']),
+            "success"    => 1,
+            "action"     => "ProjectController/action=get_projects"
+        ]);
+        exit;
+        break;
     
     default:
         # code...
