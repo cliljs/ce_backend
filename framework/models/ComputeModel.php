@@ -22,9 +22,24 @@ class ComputeModel {
             "work_days"       => $payload['work_days']
         ];
 
-        $fields = $common->get_insert_fields($arr);
+        $is_exists = $db->select("SELECT * FROM 
+                                 {$this->base_table} 
+                                 WHERE category = ? AND sub_category = ? AND project_id = ?", 
+                                 [$arr['category'], $arr['sub_category'], $arr['project_id']]);
 
-       return $db->query("INSERT INTO {$this->base_table} {$fields} VALUES (?,?,?,?,?,?,?,?,?)", array_values($arr));
+        if (empty($is_exists)) {
+            $fields = $common->get_insert_fields($arr);
+
+            return $db->query("INSERT INTO {$this->base_table} {$fields} VALUES (?,?,?,?,?,?,?,?,?)", array_values($arr));
+        } else {
+            $compute_row = $is_exists[0];
+
+            $fields = $common->get_update_fields($arr);
+    
+            $db->query("UPDATE {$this->base_table} SET {$fields} WHERE id = ?", [$compute_row['id']]);
+    
+            return $compute_row['id'];
+        }
     }
     
     public function update_compute($payload = [])
