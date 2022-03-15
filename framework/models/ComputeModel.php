@@ -36,7 +36,8 @@ class ComputeModel {
 
             $fields = $common->get_update_fields($arr);
     
-            $db->query("UPDATE {$this->base_table} SET {$fields} WHERE id = ?", [$compute_row['id']]);
+            $arr['id'] = $compute_row['id'];
+            $db->query("UPDATE {$this->base_table} SET {$fields} WHERE id = ?", array_values($arr));
     
             return $compute_row['id'];
         }
