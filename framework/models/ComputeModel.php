@@ -16,12 +16,15 @@ class ComputeModel {
             "sub_category"    => $payload['sub_category'],
             "cat_key"         => $payload['area'],
             "value"           => $payload['preferred_time'],
-            "optional_param	" => @$payload['optional_param'] ? $payload['optional_param'] : null,
+            "optional_param"  => @$payload['optional_param'] ? $payload['optional_param'] : null,
+            "worker1_count"   => $payload['worker1_count'],
+            "worker2_count"   => $payload['worker2_count'],
+            "work_days"       => $payload['work_days']
         ];
 
         $fields = $common->get_insert_fields($arr);
 
-       return $db->query("INSERT INTO {$this->base_table} {$fields} VALUES (?,?,?,?,?,?)", array_values($arr));
+       return $db->query("INSERT INTO {$this->base_table} {$fields} VALUES (?,?,?,?,?,?,?,?,?)", array_values($arr));
     }
     
     public function update_compute($payload = [])
