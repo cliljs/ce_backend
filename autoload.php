@@ -1,17 +1,20 @@
 <?php
 session_start();
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
-define('PHPMAILER_PATH', rtrim(preg_replace('#[/\\\\]{1,}#', '/', realpath(dirname(__FILE__))), '/') . '/vendor/PHPMailer/');
+// use PHPMailer\PHPMailer\PHPMailer;
+// use PHPMailer\PHPMailer\SMTP;
+// use PHPMailer\PHPMailer\Exception;
+// define('PHPMAILER_PATH', rtrim(preg_replace('#[/\\\\]{1,}#', '/', realpath(dirname(__FILE__))), '/') . '/vendor/PHPMailer/');
 
-require  PHPMAILER_PATH . 'PHPMailer/src/Exception.php';
-require  PHPMAILER_PATH . 'PHPMailer/src/PHPMailer.php';
-require  PHPMAILER_PATH . 'PHPMailer/src/SMTP.php';
+// include  PHPMAILER_PATH . 'PHPMailer/src/Exception.php';
+// require  PHPMAILER_PATH . 'PHPMailer/src/PHPMailer.php';
+// require  PHPMAILER_PATH . 'PHPMailer/src/SMTP.php';
 
 //Load Composer's autoloader
-require_once __DIR__ . '/vendor/autoload.php';
+// require_once __DIR__ . '/vendor/autoload.php';
 
 define('CONTROLLER_PATH', rtrim(preg_replace('#[/\\\\]{1,}#', '/', realpath(dirname(__FILE__))), '/') . '/framework/controllers/');
 
@@ -34,14 +37,14 @@ if (file_exists(CONTROLLER_PATH . $request_controller)) {
 } 
 
 $db         = new DatabaseController();
-$php_mailer = new PHPMailer();
+// $php_mailer = new PHPMailer();
 
-// Server settings
-$php_mailer->isSMTP();
-$php_mailer->Host       = 'smtp.gmail.com';
-$php_mailer->SMTPAuth   = true;
-$php_mailer->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-$php_mailer->Port       = 587;
+// // Server settings
+// $php_mailer->isSMTP();
+// $php_mailer->Host       = 'smtp.gmail.com';
+// $php_mailer->SMTPAuth   = true;
+// $php_mailer->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+// $php_mailer->Port       = 587;
 
 // $mailer = new MailController($php_mailer);
 
