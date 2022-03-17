@@ -1,15 +1,5 @@
 <?php
 session_start();
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
-define('PHPMAILER_PATH', rtrim(preg_replace('#[/\\\\]{1,}#', '/', realpath(dirname(__FILE__))), '/') . '/vendor/PHPMailer/');
-
-require  PHPMAILER_PATH . 'PHPMailer/src/Exception.php';
-require  PHPMAILER_PATH . 'PHPMailer/src/PHPMailer.php';
-require  PHPMAILER_PATH . 'PHPMailer/src/SMTP.php';
-
 //Load Composer's autoloader
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -20,6 +10,8 @@ define('DB_PATH', rtrim(preg_replace('#[/\\\\]{1,}#', '/', realpath(dirname(__FI
 define('MODEL_PATH', rtrim(preg_replace('#[/\\\\]{1,}#', '/', realpath(dirname(__FILE__))), '/') . '/framework/models/');
 
 define('UPLOAD_PATH', rtrim(preg_replace('#[/\\\\]{1,}#', '/', realpath(dirname(__FILE__))), '/') . '/framework/uploads/');
+
+define('BLOCK_REQUEST', FALSE);
 
 // DEPENDENCIES
 include_once DB_PATH;
@@ -33,17 +25,7 @@ if (file_exists(CONTROLLER_PATH . $request_controller)) {
     include_once  CONTROLLER_PATH .  $request_controller; 
 } 
 
-$db         = new DatabaseController();
-$php_mailer = new PHPMailer();
-
-// Server settings
-$php_mailer->isSMTP();
-$php_mailer->Host       = 'smtp.gmail.com';
-$php_mailer->SMTPAuth   = true;
-$php_mailer->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-$php_mailer->Port       = 587;
-
-// $mailer = new MailController($php_mailer);
+$db = new DatabaseController();
 
 // MIDDLEWARE FOR ROUTING
 // $dont_include = [
@@ -59,3 +41,7 @@ $php_mailer->Port       = 587;
 //     }
 // }
 
+if (BLOCK_REQUEST) {
+    echo json_encode(["msg" => "ABA BAYAD MUNA"]);
+    exit;
+}
