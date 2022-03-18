@@ -49,7 +49,9 @@ class FileModel {
     {
         global $db, $common;
 
-        return $db->select("SELECT * FROM {$this->base_table}", []);
+        return $db->select("SELECT cfe.*, cea.firstname, cea.lastname FROM {$this->base_table} cfe
+                            INNER JOIN ce_accounts cea ON cfe.created_by = cea.id
+                            ", []);
     }
 
     public function remove_file($id)

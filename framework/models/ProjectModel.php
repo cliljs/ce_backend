@@ -50,11 +50,17 @@ class ProjectModel {
     {
         global $db, $common;
 
-        return $db->query("DELETE {$this->base_table}, ce_compute
+        $has_compute = $db->select("SELECT * FROM ce_compute WHERE project_id = ?", [$id]);
+
+        if (!empty($has_compute)) {
+            return $db->query("DELETE {$this->base_table}, ce_compute
                             FROM {$this->base_table}
                             INNER JOIN ce_compute ON {$this->base_table}.id = ce_compute.project_id
                             WHERE {$this->base_table}.id = ?
                             ", [$id]);
+        } else {
+            return $db->query("DELETE FROM {$this->base_table} WHERE id = ?", [$id]);
+        }
     }
 
 }
