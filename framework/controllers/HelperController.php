@@ -72,7 +72,7 @@ class Helpers {
       $original_path  = null;
 
       if ($upload_type === 'files') {
-        $file_name     = "/files/{$file['file_name']}_{$tick}.{$file['ext']}";
+        $file_name     = "files/{$file['file_name']}_{$tick}.{$file['ext']}";
         $original_path = UPLOAD_PATH . $file_name;
       } else {
         $file_name     = "/images/{$file['file_name']}_{$tick}.{$file['ext']}";
