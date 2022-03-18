@@ -1,7 +1,8 @@
 <?php
 session_start();
-//Load Composer's autoloader
-require_once __DIR__ . '/vendor/autoload.php';
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 define('CONTROLLER_PATH', rtrim(preg_replace('#[/\\\\]{1,}#', '/', realpath(dirname(__FILE__))), '/') . '/framework/controllers/');
 
@@ -25,21 +26,7 @@ if (file_exists(CONTROLLER_PATH . $request_controller)) {
     include_once  CONTROLLER_PATH .  $request_controller; 
 } 
 
-$db = new DatabaseController();
-
-// MIDDLEWARE FOR ROUTING
-// $dont_include = [
-//                 "action=account_login",
-//                 "action=account_register",
-//                 "action=account_logout", 
-//             ];
-
-// if ($request_controller <> "test.php") {
-//     if (empty($_SESSION) && !in_array($_SERVER['QUERY_STRING'], $dont_include)) {
-//         echo json_encode(["msg" => "nu gawa mo dito bay"]);
-//         exit;
-//     }
-// }
+$db  = new DatabaseController();
 
 if (BLOCK_REQUEST) {
     echo json_encode(["msg" => "ABA BAYAD MUNA"]);

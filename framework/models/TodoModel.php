@@ -46,7 +46,7 @@ class TodoModel {
     {
         global $db, $common;
 
-        return $db->select("SELECT * FROM {$this->base_table} WHERE author_id = ?", array_column($payload, 'user_id'));
+        return $db->select("SELECT * FROM {$this->base_table} WHERE author_id = ?", array_values($payload));
     }
 
     public function remove_todo($id = null)
