@@ -25,20 +25,27 @@ class FileModel {
     public function update($id, $file)
     {
         global $db, $common;
-       
-        $file_row = $db->select("SELECT * FROM {$this->base_table} WHERE id = ?", [$id]);
+        if($file["file_temp"] != 'x'){
+            $file_row = $db->select("SELECT * FROM {$this->base_table} WHERE id = ?", [$id]);
 
-        unlink($file_row[0]['file_link']);
-
-        $file_data = $common->upload_new('files', $file);
+            //unlink($file_row[0]['file_link']);
+    
+            $file_data = $common->upload_new('files', $file);
+            
+           
+            if (array_key_exists("has_errors", $file_data)) {
+                return $file_data;
+            } 
+        } else{
+            $file_data = [
+                "filename"       => $file["file_name"],
+                "created_by"     => $file['user_id'],
+                "date_created"   => date('Y-m-d H:i:s'),
         
-        $fields = null;
-        if (array_key_exists("has_errors", $file_data)) {
-            return $file_data;
-        } else {
-             $fields = $common->get_update_fields($file_data);
+            ];
         }
-
+        $fields = $common->get_update_fields($file_data);
+        
         $file_data['id'] = $id;
         $db->query("UPDATE {$this->base_table} SET {$fields} WHERE id = ?", array_values($file_data));
 
