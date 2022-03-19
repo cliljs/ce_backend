@@ -37,7 +37,7 @@ class AccountModel {
             "gender"             => $payload['gender'],
             "contact_number"     => $payload['contact_number'],
             "job_position"       => $payload['job_position'],
-            "verification_token" => $payload['token'],
+            "verification_token" => $payload['verification_token'],
             "date_created"       => date('Y-m-d H:i:s'),
             "employee_id"        => $payload['employee_id']
         ];

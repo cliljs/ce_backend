@@ -32,7 +32,7 @@ switch ($act) {
         break;
 
     case 'account_update':
-        $updated_account = $account_model->profile_update();
+        $updated_account = $account_model->profile_update($_POST);
 
         echo json_encode([
             "data"      => $updated_account,
