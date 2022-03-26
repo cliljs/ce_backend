@@ -60,7 +60,6 @@ class Helpers {
              "msg"       => "Something went wrong on File Upload"
            ];
         }
-
     }
 
     // FOR BASE 64 UPLOADS

@@ -52,7 +52,6 @@ class AccountModel {
     {
         global $db, $common;
 
-
         $accounts_pk = $payload['account_id'];
 
         if (array_key_exists('account_id', $payload)) {
@@ -70,17 +69,16 @@ class AccountModel {
         
     }
 
+    // TO BE UPDATED TO CE_LABOR
     public function get_job_positions()
     {
         global $db, $common;
-
         return $db->select("SELECT job_position FROM {$this->base_table} GROUP BY job_position ORDER BY job_position", []);
     }
 
     public function get_account_list()
     {
         global $db, $common;
-
         return $db->select("SELECT * FROM {$this->base_table}", []);
     }
 }
