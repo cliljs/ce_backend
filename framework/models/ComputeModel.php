@@ -5,6 +5,7 @@ include_once '../../autoload.php';
 class ComputeModel {
 
     private $base_table = "ce_compute";
+    private $values_table = "ce_worksettings";
 
     public function create_compute($payload = [])
     {
@@ -84,6 +85,13 @@ class ComputeModel {
         return $db->select("SELECT * FROM {$this->base_table} 
                             WHERE project_id = ? AND category = ? AND sub_category", 
                             array_values($get));
+    }
+
+    public function get_default_values()
+    {
+        global $db, $common;
+        
+        return $db->select("SELECT * FROM {$this->values_table}");
     }
 }
 
