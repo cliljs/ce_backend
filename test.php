@@ -32,15 +32,33 @@ switch ($act) {
     case 'truncate': 
         $db->query("TRUNCATE TABLE ce_accounts", []);
         echo "TRUNCATE ce_accounts <br />";
-
+        
+        $db->query("TRUNCATE TABLE ce_compute", []);
+        echo "TRUNCATE ce_compute <br />";
+      
         $db->query("TRUNCATE TABLE ce_files", []);
         echo "TRUNCATE ce_files <br />";
+
+        $db->query("TRUNCATE TABLE ce_labor", []);
+        echo "TRUNCATE ce_labor <br />";
 
         $db->query("TRUNCATE TABLE ce_logs", []);
         echo "TRUNCATE ce_logs <br />";
 
         $db->query("TRUNCATE TABLE ce_notes", []);
-        echo "TRUNCATE ce_notes <br />";
+        echo "TRUNCATE ce_notes <br />";        
+
+        $db->query("TRUNCATE TABLE ce_projects", []);
+        echo "TRUNCATE ce_projects <br />";
+
+        $db->query("TRUNCATE TABLE ce_schedule", []);
+        echo "TRUNCATE ce_schedule <br />";
+  
+        $db->query("TRUNCATE TABLE ce_todo", []);
+        echo "TRUNCATE ce_todo <br />";
+
+        $db->query("TRUNCATE TABLE ce_worksettings", []);
+        echo "TRUNCATE ce_worksettings <br />";
     break;
 
     default:

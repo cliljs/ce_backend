@@ -35,15 +35,7 @@ switch ($act) {
 
     case 'get_logs':
 
-        $res_data = null;
-        if (intval($_GET['type']) === 1) {
-             // GET DAILY LOGS
-            $res_data = $log_model->get_logs(1, $_POST['user_id']);
-        } else {
-             // GET MAINTENANCE LOGS
-            $res_data = $log_model->get_logs(0, $_POST['user_id']);
-        }
-        
+        $res_data = $log_model->get_logs(intval($_GET['type']), $_GET['user_id']);
         echo json_encode([
             "success" => 1,
             "data"    => $res_data,

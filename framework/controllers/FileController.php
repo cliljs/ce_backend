@@ -42,7 +42,7 @@ switch ($act) {
     case 'get_files':
         echo json_encode([
             "success" => 1,
-            "data"    => $file_model->get_user_files(),
+            "data"    => $file_model->get_user_files($_GET['user_id']),
             "action"  => "FileController.php/?action=get_files"
         ]);
         exit;

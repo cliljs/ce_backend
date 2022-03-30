@@ -39,11 +39,11 @@ class ProjectModel {
         return $project_pk;
     }
     
-    public function get_projects() 
+    public function get_projects($params = []) 
     {
         global $db, $common;
 
-        return $db->select("SELECT * FROM {$this->base_table}", []);
+        return $db->select("SELECT * FROM {$this->base_table} WHERE created_by = ?", array_values($params));
     }
 
     public function remove_project($id = null)

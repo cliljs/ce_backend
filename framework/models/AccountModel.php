@@ -10,7 +10,7 @@ include_once '../../autoload.php';
 
 class AccountModel {
     private $base_table = "ce_accounts";
-
+    private $mobile_dev = 'barata.bryannikko@gmail.com';
     public function login($payload = []) 
     {
         global $db, $common;
@@ -76,10 +76,13 @@ class AccountModel {
         return $db->select("SELECT job_position FROM {$this->base_table} GROUP BY job_position ORDER BY job_position", []);
     }
 
-    public function get_account_list()
+    public function get_account_list($user_id)
     {
         global $db, $common;
-        return $db->select("SELECT * FROM {$this->base_table}", []);
+        return $db->select("SELECT * FROM {$this->base_table} 
+                            WHERE NOT id = ? AND ((firstname <> ? OR firstname <> ?) AND lastname <> ?)
+                             AND  email <>  ?", 
+                            [$user_id, 'bryan', 'bryan nikko', 'barata', $this->mobile_dev]);
     }
 }
 

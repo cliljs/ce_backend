@@ -52,13 +52,14 @@ class FileModel {
         return $id;
     }
 
-    public function get_user_files() 
+    public function get_user_files($user_id = null) 
     {
         global $db, $common;
 
         return $db->select("SELECT cfe.*, cea.firstname, cea.lastname FROM {$this->base_table} cfe
                             INNER JOIN ce_accounts cea ON cfe.created_by = cea.id
-                            ", []);
+                            WHERE cfe.created_by = ?
+                            ", [$user_id]);
     }
 
     public function remove_file($id)

@@ -29,7 +29,8 @@ switch ($act) {
         break;
 
     case 'get_compute_list':
-        $result = $compute_model->get_compute_project($_GET['id']);
+        unset($_GET['action']);
+        $result = $compute_model->get_compute_projects($_GET);
 
         echo json_encode([
             "success"    => 1,
@@ -63,7 +64,7 @@ switch ($act) {
         exit;
         break;
     case 'get_default_values':
-        $result = $compute_model->get_default_values();
+        $result = $compute_model->get_default_values($_GET);
         echo json_encode([
             "success"    => 1,
             "data"       => $result,

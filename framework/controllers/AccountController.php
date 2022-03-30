@@ -53,9 +53,8 @@ switch ($act) {
         break;
     
     case 'account_list':
-
         echo json_encode([
-            "data"      => $account_model->get_account_list(),
+            "data"      => $account_model->get_account_list($_GET['user_id']),
             "success"   => 1,
             "action"    => "AccountController/?action=account_list"
         ]);

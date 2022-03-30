@@ -28,8 +28,9 @@ switch ($act) {
         exit;
 
     case 'get_projects':
+        unset($_GET['action']);
         echo json_encode([
-            "data"       =>  $project_model->get_projects(),
+            "data"       =>  $project_model->get_projects($_GET),
             "success"    => 1,
             "action"     => "ProjectController/action=get_projects"
         ]);

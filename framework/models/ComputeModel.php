@@ -60,11 +60,11 @@ class ComputeModel {
     }
 
     // WHERE project_id = ?
-    public function get_compute_project($project_id = null)
+    public function get_compute_projects($project_params = [])
     {
         global $db, $common;
         
-        return $db->select("SELECT * FROM {$this->base_table} WHERE project_id = ?", [$project_id]);
+        return $db->select("SELECT * FROM {$this->base_table} WHERE project_id = ? AND user_id = ?", array_values($project_params));
     }
 
     // WHERE project_id = ?, category = ?
@@ -73,25 +73,25 @@ class ComputeModel {
         global $db, $common;
         
         return $db->select("SELECT * FROM {$this->base_table} 
-                            WHERE project_id = ? AND category = ?", 
+                            WHERE project_id = ? AND category = ? AND user_id = ?", 
                             array_values($get));
     }
 
-      // WHERE project_id = ?, category = ?, sub_cat = ?
+    // WHERE project_id = ?, category = ?, sub_cat = ?
     public function get_compute_all($get = [])
     {
         global $db, $common;
         
         return $db->select("SELECT * FROM {$this->base_table} 
-                            WHERE project_id = ? AND category = ? AND sub_category", 
+                            WHERE project_id = ? AND category = ? AND sub_category = ? AND user_id = ?", 
                             array_values($get));
     }
 
-    public function get_default_values()
+    public function get_default_values($params)
     {
         global $db, $common;
         
-        return $db->select("SELECT * FROM {$this->values_table}");
+        return $db->select("SELECT * FROM {$this->values_table} WHERE user_id = ?", array_values($params));
     }
 }
 

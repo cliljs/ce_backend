@@ -49,7 +49,10 @@ class LogModel {
 
         $is_daily_logs = $type === 1 ? 1 : 0;
 
-        return $db->select("SELECT * FROM {$this->base_table} WHERE email = ? AND is_daily_log = ?", [ $user_id, $is_daily_logs ]);
+        return $db->select("SELECT *
+                            FROM {$this->base_table} 
+                            WHERE is_daily_log = ? AND user_id = ?", 
+                            [$is_daily_logs, $user_id]);
     }
 
     public function get_log_row($pk) 
