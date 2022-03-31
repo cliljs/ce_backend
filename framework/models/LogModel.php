@@ -1,11 +1,12 @@
 <?php 
-
+include_once '../../autoload.php';
+include_once '../controllers/MailController.php';
 class LogModel {
     private $base_table = 'ce_logs';
 
     public function create_log($payload = []) 
     {
-        global $db, $common;
+        global $db, $common, $mail_controller;
         
         $emp_file = [
             "file_name" => $payload['emp_filename'],
@@ -39,10 +40,18 @@ class LogModel {
 
         $fields = $common->get_insert_fields($arr);
 
-        return $db->query("INSERT INTO {$this->base_table} {$fields} VALUES (?,?,?,?,?,?,?,?,?,?,?)", array_values($arr));
+        $new_log = $db->query("INSERT INTO {$this->base_table} {$fields} VALUES (?,?,?,?,?,?,?,?,?,?,?)", array_values($arr));
+        
+        $recent_log = $db->select("SELECT lg.*, pr.name AS 'project_name' FROM 
+                                   {$this->base_table} lg 
+                                   INNER JOIN ce_projects pr 
+                                   WHERE lg.id = ?", [$new_log]);
+
+        $recent_log = !empty($recent_log) ? $recent_log[0] : [];
+
+        return $mail_controller->send_email_logs($recent_log);
     }
 
-    // 
     public function get_logs($type = 1, $user_id) 
     {
         global $db, $common;
