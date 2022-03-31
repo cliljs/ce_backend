@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 27, 2022 at 01:16 PM
+-- Generation Time: Mar 31, 2022 at 04:40 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.3.31
 
@@ -38,15 +38,15 @@ CREATE TABLE `ce_accounts` (
   `verification_token` varchar(100) NOT NULL,
   `date_created` datetime DEFAULT NULL,
   `employee_id` varchar(100) NOT NULL,
-  `is_admin` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'Pang CRUD ng project sa app'
+  `work_exp` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `ce_accounts`
 --
 
-INSERT INTO `ce_accounts` (`id`, `email`, `firstname`, `lastname`, `gender`, `contact_number`, `job_position`, `verification_token`, `date_created`, `employee_id`, `is_admin`) VALUES
-(8, 'brynikkococ@gmail.com', 'bryan', 'nikko', 'Male', '1234-456', 'Steel Man', '110878772055035080091', '2022-03-13 06:43:42', 'LOGBI-2', 0);
+INSERT INTO `ce_accounts` (`id`, `email`, `firstname`, `lastname`, `gender`, `contact_number`, `job_position`, `verification_token`, `date_created`, `employee_id`, `work_exp`) VALUES
+(8, 'brynikkococ@gmail.com', 'bryan', 'nikko', 'Male', '1234-456', 'Steel Man', '110878772055035080091', '2022-03-13 06:43:42', 'LOGBI-2', '');
 
 -- --------------------------------------------------------
 
@@ -208,6 +208,21 @@ INSERT INTO `ce_projects` (`id`, `name`, `description`, `type`, `created_by`, `d
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `ce_schedule`
+--
+
+CREATE TABLE `ce_schedule` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `task` varchar(255) NOT NULL,
+  `date_start` date NOT NULL,
+  `date_end` date NOT NULL,
+  `status` tinyint(1) NOT NULL COMMENT '[0] PENDING, [1] COMPLETE'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `ce_todo`
 --
 
@@ -241,6 +256,14 @@ CREATE TABLE `ce_worksettings` (
   `optional_param` varchar(100) NOT NULL,
   `default_value` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `ce_worksettings`
+--
+
+INSERT INTO `ce_worksettings` (`id`, `category`, `subcategory`, `optional_param`, `default_value`) VALUES
+(1, 'Earthworks', 'Excavation', 'Hard', 2),
+(2, 'Earthworks', 'Excavation', 'Soft', 3);
 
 --
 -- Indexes for dumped tables
@@ -286,6 +309,12 @@ ALTER TABLE `ce_notes`
 -- Indexes for table `ce_projects`
 --
 ALTER TABLE `ce_projects`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ce_schedule`
+--
+ALTER TABLE `ce_schedule`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -347,6 +376,12 @@ ALTER TABLE `ce_projects`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `ce_schedule`
+--
+ALTER TABLE `ce_schedule`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `ce_todo`
 --
 ALTER TABLE `ce_todo`
@@ -356,7 +391,7 @@ ALTER TABLE `ce_todo`
 -- AUTO_INCREMENT for table `ce_worksettings`
 --
 ALTER TABLE `ce_worksettings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
