@@ -7,20 +7,29 @@ $act = isset($_GET['action']) ? $_GET['action'] : '';
 
 switch ($act) {
     case 'account_login':
-            $is_auth = $account_model->login($_POST);
+        $is_auth = $account_model->login($_POST);
 
-            $res = ["action" => "AccountController/?action=account_login"];
-            if (array_key_exists("exists", $is_auth) && !$is_auth['exists']) {
-				$res['success']  = 0;
-			} else {
-				$res['success']  = 1;
-                $res['data']     =  $is_auth;
-            }
+        $res = ["action" => "AccountController/?action=account_login"];
+        if (array_key_exists("exists", $is_auth) && !$is_auth['exists']) {
+            $res['success']  = 0;
+        } else {
+            $res['success']  = 1;
+            $res['data']     =  $is_auth;
+        }
 
-            echo json_encode($res);
-            exit;
+        echo json_encode($res);
+        exit;
         break;
-    case 'account_create': 
+    case 'account_get':
+      
+        $res['success']  = 1;
+        $res['data']     =  $account_model->account_get($_POST);
+        $res = ["action" => "AccountController/?action=account_login"];
+
+        echo json_encode($res);
+        exit;
+        break;
+    case 'account_create':
         $new_account = $account_model->profile_create($_POST);
 
         echo json_encode([
@@ -41,7 +50,16 @@ switch ($act) {
         ]);
         exit;
         break;
-    
+
+    case 'account_delete':
+        echo json_encode([
+            "data"      => $account_model->profile_delete($_POST),
+            "success"   => 1,
+            "action"    => "AccountController/?action=account_delete"
+        ]);
+        exit;
+        break;
+
     case 'account_position':
         $job_positions = $account_model->get_job_positions();
 
@@ -51,7 +69,7 @@ switch ($act) {
             "action"    => "AccountController/?action=account_position"
         ]);
         break;
-    
+
     case 'account_list':
         echo json_encode([
             "data"      => $account_model->get_account_list($_GET['user_id']),
@@ -60,12 +78,12 @@ switch ($act) {
         ]);
         exit;
         break;
-    
+
     case 'account_logout':
         session_regenerate_id();
 
         session_destroy();
-        setcookie("PHPSESSID","",time()-3600,"/"); // delete session cookie
+        setcookie("PHPSESSID", "", time() - 3600, "/"); // delete session cookie
 
         echo json_encode([
             "logout"  => 1,
@@ -73,7 +91,7 @@ switch ($act) {
         ]);
         exit;
         break;
-    
+
     default:
         break;
 }

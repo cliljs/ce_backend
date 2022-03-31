@@ -25,7 +25,13 @@ class AccountModel {
 
         return $has_account[0];
     }
-
+    public function account_get($payload = []) 
+    {
+        global $db, $common;
+        $user_id = $payload['user_id'];
+        $has_account = $db->select("SELECT * FROM {$this->base_table} WHERE id = ?", [$user_id]);
+        return $has_account[0];
+    }
     public function profile_create($payload = []) 
     {
         global $db, $common;
@@ -39,11 +45,12 @@ class AccountModel {
             "job_position"       => $payload['job_position'],
             "verification_token" => $payload['verification_token'],
             "date_created"       => date('Y-m-d H:i:s'),
-            "employee_id"        => $payload['employee_id']
+            "employee_id"        => $payload['employee_id'],
+            "work_exp"        => $payload['work_exp']
         ];
 
         $fields = $common->get_insert_fields($arr);    
-        $autoID = $db->query("INSERT INTO {$this->base_table} {$fields} VALUES (?,?,?,?,?,?,?,?,?)", array_values($arr));
+        $autoID = $db->query("INSERT INTO {$this->base_table} {$fields} VALUES (?,?,?,?,?,?,?,?,?,?)", array_values($arr));
 
         return $autoID;
     }
@@ -67,6 +74,14 @@ class AccountModel {
 
 		return $account[0];
         
+    }
+
+    
+    public function profile_delete($payload= [])
+    {
+        global $db, $common;
+        $pk = $payload['account_id'];
+		return $db->query("DELETE from {$this->base_table} WHERE {$this->base_table}.id = ?",[$pk]);
     }
 
     // TO BE UPDATED TO CE_LABOR
