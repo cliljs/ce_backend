@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 31, 2022 at 04:40 AM
+-- Generation Time: Mar 31, 2022 at 08:34 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.3.31
 
@@ -46,7 +46,8 @@ CREATE TABLE `ce_accounts` (
 --
 
 INSERT INTO `ce_accounts` (`id`, `email`, `firstname`, `lastname`, `gender`, `contact_number`, `job_position`, `verification_token`, `date_created`, `employee_id`, `work_exp`) VALUES
-(8, 'brynikkococ@gmail.com', 'bryan', 'nikko', 'Male', '1234-456', 'Steel Man', '110878772055035080091', '2022-03-13 06:43:42', 'LOGBI-2', '');
+(8, 'brynikkococ@gmail.com', 'bryan', 'nikko', 'Male', '1234-456', 'Steel Man', '110878772055035080091', '2022-03-13 06:43:42', 'LOGBI-2', 'asdasda\nasdsad\nasdasd\nasdasd\nasdasd\nasdasd\nasdas\ndasd\nasd\nasd\nsad\nasd\nas\ndas\ndas\ndas'),
+(10, 'sample@gmail.com', 'User', 'Sample No. 1', 'Male', '12345', 'Laborer', '12345', '2022-03-31 05:41:43', '1111', 'Skill 1 - 2 years\r\nSkill 2 - 5 years\r\nSkill 3 - 1 year');
 
 -- --------------------------------------------------------
 
@@ -91,13 +92,6 @@ CREATE TABLE `ce_files` (
   `file_link` varchar(100) NOT NULL,
   `timestamp_tick` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `ce_files`
---
-
-INSERT INTO `ce_files` (`id`, `filename`, `filesize`, `created_by`, `date_created`, `file_link`, `timestamp_tick`) VALUES
-(8, 'files/wews_1647652727.jpg', 90380, 8, '2022-03-19 02:18:47', 'files/wews_1647652727.jpg', 1647652727);
 
 -- --------------------------------------------------------
 
@@ -147,17 +141,18 @@ CREATE TABLE `ce_logs` (
   `supervisor_signature` varchar(255) NOT NULL,
   `email_to` varchar(100) NOT NULL,
   `is_daily_log` tinyint(1) DEFAULT 0,
-  `email` varchar(255) NOT NULL
+  `email` varchar(255) NOT NULL,
+  `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `ce_logs`
 --
 
-INSERT INTO `ce_logs` (`id`, `name`, `time_in`, `time_out`, `log_date`, `project`, `tasks`, `emp_signature`, `supervisor_signature`, `email_to`, `is_daily_log`, `email`) VALUES
-(1, 'bryan nikko', '00:08:00', '00:15:00', '2022-03-16', 'Sample House', 'Ceiling', '/images/logbi_1647407798.png', '/images/patootie_1647407798.png', 'asd', 1, 'brynikkococ@gmail.com'),
-(2, 'bryan nikko', '00:07:00', '00:08:00', '2022-03-16', 'Sample House', 'Sample', '/images/logbi_1647408509.png', '/images/patootie_1647408509.png', 'asd', 1, 'brynikkococ@gmail.com'),
-(3, 'bryan nikko', '17:04:00', '21:00:00', '2022-03-27', 'Sample House', '123', '/images/logbi_1648371881.png', '/images/patootie_1648371881.png', 'asd', 1, 'brynikkococ@gmail.com');
+INSERT INTO `ce_logs` (`id`, `name`, `time_in`, `time_out`, `log_date`, `project`, `tasks`, `emp_signature`, `supervisor_signature`, `email_to`, `is_daily_log`, `email`, `user_id`) VALUES
+(1, 'bryan nikko', '00:08:00', '00:15:00', '2022-03-16', 'Sample House', 'Ceiling', '/images/logbi_1647407798.png', '/images/patootie_1647407798.png', 'asd', 1, 'brynikkococ@gmail.com', 8),
+(2, 'bryan nikko', '00:07:00', '00:08:00', '2022-03-16', 'Sample House', 'Sample', '/images/logbi_1647408509.png', '/images/patootie_1647408509.png', 'asd', 1, 'brynikkococ@gmail.com', 8),
+(3, 'bryan nikko', '17:04:00', '21:00:00', '2022-03-27', 'Sample House', '123', '/images/logbi_1648371881.png', '/images/patootie_1648371881.png', 'asd', 1, 'brynikkococ@gmail.com', 8);
 
 -- --------------------------------------------------------
 
@@ -337,7 +332,7 @@ ALTER TABLE `ce_worksettings`
 -- AUTO_INCREMENT for table `ce_accounts`
 --
 ALTER TABLE `ce_accounts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `ce_compute`

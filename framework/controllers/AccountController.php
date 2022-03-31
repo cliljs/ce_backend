@@ -24,7 +24,7 @@ switch ($act) {
       
         $res['success']  = 1;
         $res['data']     =  $account_model->account_get($_POST);
-        $res = ["action" => "AccountController/?action=account_login"];
+        $res["action"] = "AccountController/?action=account_login";
 
         echo json_encode($res);
         exit;
