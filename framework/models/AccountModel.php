@@ -49,6 +49,10 @@ class AccountModel {
             "work_exp"        => $payload['work_exp']
         ];
 
+        $has_account = $db->select("SELECT * FROM {$this->base_table} WHERE email = ?", [$payload['email']]);
+        if (!empty($has_account)) {
+            return ['exists' => true];
+        }
         $fields = $common->get_insert_fields($arr);    
         $autoID = $db->query("INSERT INTO {$this->base_table} {$fields} VALUES (?,?,?,?,?,?,?,?,?,?)", array_values($arr));
 
