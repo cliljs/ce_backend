@@ -32,10 +32,12 @@ if (file_exists(CONTROLLER_PATH . $request_controller)) {
 $db  = new DatabaseController();
 
 if (BLOCK_REQUEST) {
-    echo json_encode(["msg" => "ABA BAYAD MUNA"]);
+    echo json_encode(["msg" => "THE APPLICATION IS ON TRIAL PLEASE COMPLETE YOUR PAYMENT"]);
     exit;
 }
 
+// KASO MGA ERROR VALIDATION DI KO MASAMA PERO GOODS NAMAN LAHAT LAHAT NG REQUEST NILANG GAGAMIT 
+// IISANG ROW NG DATA NAGIINCREMENT SET NALANG NG REQUEST LIMIT HAHAHAH
 // PWEDE MO KUYA DITO WAG ISAMA LOGIN $request_controller === 'AccountController.php'
 if (FOR_TRIAL && !empty($_POST)) {
     $trial_status = $trial_controller->count_request();
