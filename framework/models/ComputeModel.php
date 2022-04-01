@@ -64,7 +64,7 @@ class ComputeModel {
     {
         global $db, $common;
         
-        return $db->select("SELECT * FROM {$this->base_table} WHERE project_id = ? AND user_id = ?", array_values($project_params));
+        return $db->select("SELECT * FROM {$this->base_table} WHERE project_id = ?", array_values($project_params));
     }
 
     // WHERE project_id = ?, category = ?
@@ -73,7 +73,7 @@ class ComputeModel {
         global $db, $common;
         
         return $db->select("SELECT * FROM {$this->base_table} 
-                            WHERE project_id = ? AND category = ? AND user_id = ?", 
+                            WHERE project_id = ? AND category = ?", 
                             array_values($get));
     }
 
@@ -83,7 +83,7 @@ class ComputeModel {
         global $db, $common;
         
         return $db->select("SELECT * FROM {$this->base_table} 
-                            WHERE project_id = ? AND category = ? AND sub_category = ? AND user_id = ?", 
+                            WHERE project_id = ? AND category = ? AND sub_category = ?", 
                             array_values($get));
     }
 

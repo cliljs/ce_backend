@@ -16,8 +16,8 @@ class MailController {
         $this->mail->Port = 587; // TLS only
         $this->mail->SMTPSecure = 'tls'; // ssl is depracated
         $this->mail->SMTPAuth = true;
-        $this->mail->Username = 'caliljaudiannn@gmail.com';
-        $this->mail->Password = 'jaudian29';
+        $this->mail->Username = 'hau.ce2022@gmail.com';
+        $this->mail->Password = 'haucethesis2022*';
     }
 
     private function template_log($payload = [])
@@ -47,7 +47,7 @@ class MailController {
                             <h4>Time In:      {$payload['time_in']} </h4>
                             <h4>Time Out:     {$payload['time_out']}</h4>
                             <h4>Date Logged:  {$payload['log_date']}</h4>
-                            <h4>Tasks:        {$payload['tasks']}</h4>
+                            <h4>Task:        {$payload['tasks']}</h4>
                         </section>
                     </body>
                     </html>";
@@ -60,7 +60,7 @@ class MailController {
         // $this->mail->setFrom('caliljaudiannn@gmail.com', 'Calil Jaudian');
         $hmtlBody = $this->template_log($config);
         $this->mail->addAddress($config['email_to'], 'Test');
-        $this->mail->Subject = 'PHPMailer GMail SMTP test';
+        $this->mail->Subject = 'Headcount Support System - Daily Log';
         $this->mail->msgHTML($hmtlBody); //$this->mail->msgHTML(file_get_contents('contents.html'), __DIR__); //Read an HTML message body from an external file, convert referenced images to embedded,
         $this->mail->AltBody = 'HTML messaging not supported';
 

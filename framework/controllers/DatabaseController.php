@@ -6,7 +6,7 @@ class DatabaseController
     private $conn = null;
     public function __construct(
         $host    = "127.0.0.1",
-        $db_name = "ce_api_260322",
+        $db_name = "ce_api",
         $user    = "root",
         $pass    = ""
     ) {

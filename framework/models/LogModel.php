@@ -36,11 +36,12 @@ class LogModel {
             "email_to"             => $payload['email_to'], 
             "is_daily_log"         => $payload['is_daily_log'], 
             "email"                => $payload['email'], 
+            "user_id"                => $payload['user_id'], 
         ];
 
         $fields = $common->get_insert_fields($arr);
 
-        $new_log = $db->query("INSERT INTO {$this->base_table} {$fields} VALUES (?,?,?,?,?,?,?,?,?,?,?)", array_values($arr));
+        $new_log = $db->query("INSERT INTO {$this->base_table} {$fields} VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", array_values($arr));
         
         $recent_log = $db->select("SELECT lg.*, pr.name AS 'project_name' FROM 
                                    {$this->base_table} lg 
